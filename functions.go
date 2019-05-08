@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 
+var SkipFrameCount = 1
+
 // Wrapper is an error implementation
 // wrapping context around another error.
 type Wrapper interface {
@@ -68,7 +70,7 @@ func New(code uint32, msg string, args ...interface{}) error {
 		args: args,
 	}
 
-	er.setLocation(1)
+	er.setLocation(SkipFrameCount)
 
 	return er
 }
@@ -91,7 +93,7 @@ func NewWithAlert(code uint32, alert string, msg string, args ...interface{}) er
 		alert: alert,
 	}
 
-	er.setLocation(1)
+	er.setLocation(SkipFrameCount)
 
 	return er
 }
@@ -109,7 +111,7 @@ func Trace(e error) error {
 		return nil
 	}
 
-	er.setLocation(1)
+	er.setLocation(SkipFrameCount)
 
 	return er
 }
@@ -137,7 +139,7 @@ func Wrap(e error, code uint32, v ...interface{}) error {
 		}
 		er.args = v[1:]
 	}
-	er.setLocation(1)
+	er.setLocation(SkipFrameCount)
 
 	return er
 }
@@ -159,7 +161,7 @@ func Annotate(e error, msg string, args ...interface{}) error {
 
 	er.msg = msg
 	er.args = args
-	er.setLocation(1)
+	er.setLocation(SkipFrameCount)
 
 	return er
 }
@@ -181,7 +183,7 @@ func DeferredAnnotate(e *error, msg string, args ...interface{}) {
 
 	er.msg = msg
 	er.args = args
-	er.setLocation(1)
+	er.setLocation(SkipFrameCount)
 
 	*e = er
 }
@@ -193,7 +195,7 @@ func ToError(e error) *Error {
 		return nil
 	}
 
-	er.setLocation(1)
+	er.setLocation(SkipFrameCount)
 
 	return er
 }
@@ -327,7 +329,7 @@ func BadRequest(msg interface{}, args ...interface{}) error {
 		er.msg = fmt.Sprint(msg)
 	}
 
-	er.setLocation(1)
+	er.setLocation(SkipFrameCount)
 
 	return er
 }
