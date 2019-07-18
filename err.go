@@ -6,18 +6,8 @@ import (
 	"runtime"
 )
 
-const CodeOK uint32 = 0
-
-// some internal error
-const (
-	CodeInternal   uint32 = 1000
-	CodeBadRequest uint32 = 1400
-	CodeUnAuth     uint32 = 1401 // miss token
-	CodeForbidden  uint32 = 1403
-	CodeNotFound   uint32 = 1404
-	CodeNotAllowed uint32 = 1405
-	CodeConflict   uint32 = 1409 // conflict error
-)
+// internal error
+var CodeInternal uint32 = 1000
 
 // Error implements error interface and add Code, so
 // errors with different message can be compared.

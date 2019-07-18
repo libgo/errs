@@ -72,12 +72,12 @@ func TestCause(t *testing.T) {
 		t.Fatal("e0 should be origin")
 	}
 
-	e1 := Wrap(e0, CodeBadRequest)
+	e1 := Wrap(e0, 1400)
 	if Cause(e1) != origin {
 		t.Fatal("e1 should be origin")
 	}
 
-	e2 := Wrap(e1, CodeConflict)
+	e2 := Wrap(e1, 1409)
 	if Cause(e2) != origin {
 		t.Fatal("e2 should be origin")
 	}

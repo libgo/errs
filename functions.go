@@ -60,7 +60,7 @@ func toError(e error) *Error {
 //    return errs.New(401, "missing id")
 //
 func New(code uint32, msg string, args ...interface{}) error {
-	if code == CodeOK {
+	if code == 0 {
 		return nil
 	}
 
@@ -82,7 +82,7 @@ func New(code uint32, msg string, args ...interface{}) error {
 //    return errs.New(404, "用户不存在", "user not found")
 //
 func NewWithAlert(code uint32, alert string, msg string, args ...interface{}) error {
-	if code == CodeOK {
+	if code == 0 {
 		return nil
 	}
 
@@ -306,30 +306,4 @@ func stack(err error) []string {
 		}
 	}
 	return lines
-}
-
-// BadRequest error
-func BadRequest(msg interface{}, args ...interface{}) error {
-	er := &Error{
-		code: CodeBadRequest,
-		args: args,
-	}
-
-	switch v := msg.(type) {
-	case string:
-		er.msg = v
-	case error:
-		er.prev = v
-		if e, ok := v.(*Error); ok {
-			er.msg = e.Message()
-		} else {
-			er.msg = v.Error()
-		}
-	default:
-		er.msg = fmt.Sprint(msg)
-	}
-
-	er.setLocation(SkipFrameCount)
-
-	return er
 }

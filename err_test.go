@@ -24,7 +24,7 @@ func TestNew(t *testing.T) {
 }
 
 func TestNewWithAlert(t *testing.T) {
-	e1 := NewWithAlert(CodeBadRequest, "少参数", "missing params")
+	e1 := NewWithAlert(1404, "少参数", "missing params")
 	t.Log(e1)
 	data, _ := json.Marshal(e1)
 	t.Log(string(data))
